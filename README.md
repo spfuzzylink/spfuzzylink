@@ -2,43 +2,55 @@
 
 # spfuzzylink
 
-### Build small. Break deliberately. Keep what survives.
+### Every abstraction is a hypothesis.
 
-**curiosity → code → failure → understanding**
+**Build something small enough to understand. Then ask it a difficult question.**
 
-Weekend experiments in storage, distributed systems, and the machinery around AI.
+curiosity → experiment → failure → understanding
 
 </div>
 
 ---
 
-I build things to find out where my assumptions stop working.
+I’m interested in the distance between a system that works and a system whose failure I can explain.
 
-A stalled worker. A stale write. A machine that disappears halfway through a task. The interesting part starts when the happy path ends.
+Some questions only become clear after you build the thing. Give it a little state, a little concurrency, and an inconvenient restart. See which assumptions survive.
 
-My default is a small, inspectable system on hardware I control. Complexity has to earn its place: add a component when an experiment shows why it is needed.
+I like starting with the fewest moving parts I can get away with. Complexity has to earn its place. A new component should explain more than it hides.
 
-> A useful failure teaches me more than a convincing diagram.
+> The most useful thing a side project can produce is a better question.
 
-### Current rabbit hole
+Most repositories here begin as a curiosity. Some may become useful tools. Each should leave behind a clearer understanding of how something behaves when the happy path ends.
 
-Extra controls around how AI agents publish to shared storage: scoped access, version checks, retry receipts, and a durable record of what happened.
+### A few principles I keep coming back to
 
-Starting with Go, SQLite, and ordinary Linux tooling. Exploring Podman and systemd before reaching for a cluster scheduler.
+- Make the state visible.
+- Treat failure as something to study.
+- Understand the small system before growing it.
+- Let evidence change the design.
+- Leave enough notes for the next curious person.
 
-### Things I like to test
+---
 
-- Can a late worker overwrite a newer result?
-- Does a retry repeat the effect, or recover the original answer?
-- What remains true after a hard restart?
-- At what point does another machine actually help?
+### ☕ Brewing / loading…
 
-Small projects. Concrete failure cases. Notes on what held up.
+**Agent Fence** — a small experiment in how AI agents share state without silently overwriting one another’s work.
+
+The questions taking shape:
+
+- What authority should a late worker still have?
+- What does it mean to retry a write after the answer was lost?
+- Which promises survive a process restart?
+- How far can one self-hosted machine take this?
+
+Go, SQLite, and ordinary Linux tooling are the starting ingredients. Podman and systemd are part of the experiment. Kubernetes stays outside the first sketch.
+
+Small enough to inspect. Interesting enough to break on purpose.
 
 ---
 
 <div align="center">
 
-<sub>Built out of curiosity. Shared as experiments.</sub>
+<sub>Curiosity starts the experiment. Evidence decides what stays.</sub>
 
 </div>
