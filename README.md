@@ -34,7 +34,7 @@ Most repositories here begin as a curiosity. Some may become useful tools. Each 
 
 ### ☕ Brewing / loading…
 
-**Agent Fence** — a small experiment in how AI agents share state without silently overwriting one another’s work.
+**[Questlock](https://github.com/spfuzzylink/questlock)** — a small experiment in how AI agents share state without silently overwriting one another’s work.
 
 The questions taking shape:
 
