@@ -32,11 +32,16 @@ Most repositories here begin as a curiosity. Some may become useful tools. Each 
 
 ---
 
-### ☕ Brewing / loading…
+### ☕ Currently building: Questlock
 
 **[Questlock](https://github.com/spfuzzylink/questlock)** — a small experiment in how AI agents share state without silently overwriting one another’s work.
 
-The questions taking shape:
+The first experimental release is available for macOS and Linux, on ARM64 and x86-64.
+[Run the recovery quest](https://github.com/spfuzzylink/questlock#start-the-quest),
+[download a binary](https://github.com/spfuzzylink/questlock#download-a-binary), or
+[fork it](https://github.com/spfuzzylink/questlock/fork) to explore your own failure case.
+
+The questions behind it:
 
 - What authority should a late worker still have?
 - What does it mean to retry a write after the answer was lost?
