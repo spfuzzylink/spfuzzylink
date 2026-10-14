@@ -34,51 +34,54 @@ Most repositories here begin as a curiosity. Some may become useful tools. Each 
 
 ### ☕ Currently building: Questlock
 
-![Questlock v0.2.0: shared state, less repeated model work. Approve, claim, generate, and reuse eligible answers across OpenAI, Claude, and local Ollama.](assets/questlock-evolution.svg)
+![Questlock v0.3.0: delegate, measure, reuse. Bounded local workers, explicit quality checks, and optional Langfuse observability.](assets/questlock-v0.3.0.svg)
 
-**[Questlock](https://github.com/spfuzzylink/questlock)** — a Go + SQLite experiment in shared agent state and bounded model work.
+**[Questlock](https://github.com/spfuzzylink/questlock)** — a Go + SQLite experiment in reducing repeated agent work, with explicit quality gates.
 
-It began with a stale worker waking up and trying to overwrite a newer answer.
-The next question: when several workers need the same approved answer, how many
-model calls should they start?
+It began with a stale worker trying to overwrite a newer answer. Now the question
+is broader: what does it cost to finish an accepted task, and which repeated
+model calls can shared state avoid?
 
-- **Make the request inspectable.** Plan explicit approved context, preserve required chunks, and set input/output limits before generation.
-- **Coordinate repeated work.** Concurrent workers claim one exact task; opted-in completed-result reuse survives a broker restart.
-- **Keep spending visible.** Shared API budget reservations remain held on unknown outcomes; successful reconciliation of a measured overrun freezes that day’s ledger for review.
-- **Run routine tasks locally.** Installed Ollama weights allow fresh inference without provider token bills, within your hardware, memory, time, and model-quality limits.
+- **Make the request inspectable.** Approve the exact context, model, limits, and snapshot before generation.
+- **Delegate bounded work.** Codex and Claude Code can use a local-first MCP worker with deterministic acceptance checks. A failed check withholds the answer; an uncertain call stops.
+- **Reuse valid snapshots.** Exact result reuse avoids another generation and survives broker restarts. Changed facts require a new revision.
+- **Measure what happened.** Current-run phase timings, local streaming first-content/output intervals, normalized usage, and optional content-free Langfuse metadata keep fresh inference separate from retrieval.
 
-One measured local handoff used **366 input / 135 output tokens**. Requesting that
-same snapshot again used **0 / 0 new generation tokens** and recovered the stored
-answer. Reuse stays valid only while the approved snapshot remains unchanged;
-update the task revision when its facts change.
-[See the executed checks](https://github.com/spfuzzylink/questlock/blob/main/docs/validation.md#020-model-workflow-validation--2026-10-12).
+One real MCP extraction passed strict JSON and exact-value checks using **58 input
+/ 21 output tokens**. An exact repeat recovered it in **27.6 ms**, with **zero new
+generation tokens**. That is one observed snapshot, not a universal speedup or an
+invoice saving. The broader six-case local evaluation rejected both configurations
+for failed checks; quality failures remain part of the evidence.
+[Measurements and limitations](https://github.com/spfuzzylink/questlock/blob/main/docs/measurements-v0.3.0.md).
 
 **OpenRouter routes the model. Questlock coordinates the work.**
-The intended OpenRouter add-on supplies approved context, shared task admission,
-and durable reuse around its model-routing layer. Its provider interface and
-caching deserve credit; the Questlock OpenRouter adapter remains future work.
-[Companion architecture and attribution](https://github.com/spfuzzylink/questlock/blob/main/docs/model-architecture.md#openrouter-inspiration-and-possible-add-on).
+The companion direction adds approved context, shared task admission, bounded
+local delegation, and durable reuse around a routing layer. Credit to OpenRouter
+for its common provider interface and caching, and to Langfuse for observability.
+A selectable OpenRouter adapter remains future work; direct OpenAI, Anthropic,
+and installed local Ollama adapters are available today.
+[Architecture and attribution](https://github.com/spfuzzylink/questlock/blob/main/docs/model-architecture.md#openrouter-inspiration-and-possible-add-on).
 
-**[v0.2.0](https://github.com/spfuzzylink/questlock/releases/tag/v0.2.0)** is available for macOS and Linux, on ARM64 and x86-64.
-After [installing](https://github.com/spfuzzylink/questlock#start-the-quest), try both offline quests:
+**[Experimental v0.3.0](https://github.com/spfuzzylink/questlock/releases/tag/v0.3.0)** supports macOS and Linux on ARM64 and x86-64.
+After [installing](https://github.com/spfuzzylink/questlock#start-the-quest), try the offline demos and evaluation:
 
 ```sh
 ./bin/questlock quest
 ./bin/questlock model quest
+./bin/questlock model evaluate
 ```
 
-The original quest exercises stale writes and crash recovery. The model quest
-runs **six scenarios** with deterministic model fixtures: exact reuse, whole-chunk
-context selection, cost preflight, 20 competing workers, restart/revision behavior,
-and shared budgets with unknown outcomes. No model account or paid call needed.
+The demos use deterministic fixtures and need no model account. Live local work
+needs installed weights and the scoped broker; hardware, electricity, and time
+still cost resources. Hosted chats keep their normal usage allowance.
 
-[What, why, and how](https://github.com/spfuzzylink/questlock/blob/main/docs/model-architecture.md) ·
-[Local setup](https://github.com/spfuzzylink/questlock/blob/main/docs/local-models.md) ·
+[Delegation and MCP](https://github.com/spfuzzylink/questlock/blob/main/docs/delegation.md) ·
+[Langfuse setup](https://github.com/spfuzzylink/questlock/blob/main/docs/inference-observability.md) ·
 [Container](https://github.com/spfuzzylink/questlock/pkgs/container/questlock) ·
 [Editable diagrams](https://github.com/spfuzzylink/questlock/blob/main/docs/model-architecture.md#editable-architecture-diagrams) ·
 [Fork a failure case](https://github.com/spfuzzylink/questlock/fork)
 
-Small enough to inspect. Interesting enough to break on purpose.
+Small enough to inspect. Useful enough to measure.
 
 ---
 
