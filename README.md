@@ -34,51 +34,39 @@ Most repositories here begin as a curiosity. Some may become useful tools. Each 
 
 ### ☕ Currently building: Questlock
 
-![Questlock v0.3.0: delegate, measure, reuse. Bounded local workers, explicit quality checks, and optional Langfuse observability.](assets/questlock-v0.3.0.svg)
+![Questlock v0.4.0: checks, human acceptance, and recorded-work costs.](assets/questlock-v0.4.0.svg)
 
-**[Questlock](https://github.com/spfuzzylink/questlock)** — a Go + SQLite experiment in reducing repeated agent work, with explicit quality gates.
+**[Questlock](https://github.com/spfuzzylink/questlock)** — a Go + SQLite experiment in making shared agent work measurable, reusable, and reviewable.
 
-It began with a stale worker trying to overwrite a newer answer. Now the question
-is broader: what does it cost to finish an accepted task, and which repeated
-model calls can shared state avoid?
+A model can pass its checks and still leave a person with work to redo.
+**Experimental v0.4.0 connects declared-check results to explicit human feedback.**
 
-- **Make the request inspectable.** Approve the exact context, model, limits, and snapshot before generation.
-- **Delegate bounded work.** Codex and Claude Code can use a local-first MCP worker with deterministic acceptance checks. A failed check withholds the answer; an uncertain call stops.
-- **Reuse valid snapshots.** Exact result reuse avoids another generation and survives broker restarts. Changed facts require a new revision.
-- **Measure what happened.** Current-run phase timings, local streaming first-content/output intervals, normalized usage, and optional content-free Langfuse metadata keep fresh inference separate from retrieval.
+- **Delegate bounded work.** Codex and Claude Code can use a local-first MCP worker with explicit context, limits, and checks.
+- **Record what the reviewer decides.** Accept, rewrite, reject, or reopen the work. Every rewrite clears acceptance until explicit reacceptance identifies the final artifact digest.
+- **Count the work that failed too.** A declared cohort retains recorded attempt costs and incremental review time, including rejected work. Missing cost, effort, or hourly rate stays unknown.
+- **Reuse valid snapshots.** Matching completed results avoid another generation; reuse adds zero new generation usage rather than charging the original answer again.
 
-One real MCP extraction passed strict JSON and exact-value checks using **58 input
-/ 21 output tokens**. An exact repeat recovered it in **27.6 ms**, with **zero new
-generation tokens**. That is one observed snapshot, not a universal speedup or an
-invoice saving. The broader six-case local evaluation rejected both configurations
-for failed checks; quality failures remain part of the evidence.
-[Measurements and limitations](https://github.com/spfuzzylink/questlock/blob/main/docs/measurements-v0.3.0.md).
+The metric is cost per **currently human-accepted outcome in the recorded cohort**. It becomes available only with explicit review signals and complete required accounting. Configured prices are estimates, and surrounding hosted-chat usage, hardware, and unrecorded work remain separate. No passive editor watching or automatic acceptance is implied. Cohorts count task ID/revision pairs; the application defines how those map to business deliverables.
+[Human feedback and accounting](https://github.com/spfuzzylink/questlock/blob/main/docs/outcomes.md) · [Runnable synthetic examples](https://github.com/spfuzzylink/questlock/tree/main/examples/outcomes).
 
 **OpenRouter routes the model. Questlock coordinates the work.**
-The companion direction adds approved context, shared task admission, bounded
-local delegation, and durable reuse around a routing layer. Credit to OpenRouter
-for its common provider interface and caching, and to Langfuse for observability.
-A selectable OpenRouter adapter remains future work; direct OpenAI, Anthropic,
-and installed local Ollama adapters are available today.
+Credit to OpenRouter for the common provider interface and caching that inspire this companion direction, and to Langfuse for optional content-free inference observability. Direct OpenAI, Anthropic, and installed local Ollama adapters are available; a selectable OpenRouter adapter remains planned. Langfuse check scores and explicit human acceptance remain separate signals.
 [Architecture and attribution](https://github.com/spfuzzylink/questlock/blob/main/docs/model-architecture.md#openrouter-inspiration-and-possible-add-on).
 
-**[Experimental v0.3.0](https://github.com/spfuzzylink/questlock/releases/tag/v0.3.0)** supports macOS and Linux on ARM64 and x86-64.
-After [installing](https://github.com/spfuzzylink/questlock#start-the-quest), try the offline demos and evaluation:
+**[Experimental v0.4.0](https://github.com/spfuzzylink/questlock/releases/tag/v0.4.0)** supports macOS and Linux on ARM64 and x86-64. After [installing](https://github.com/spfuzzylink/questlock#start-the-quest), try:
 
 ```sh
 ./bin/questlock quest
 ./bin/questlock model quest
-./bin/questlock model evaluate
+./bin/questlock outcome quest
 ```
 
-The demos use deterministic fixtures and need no model account. Live local work
-needs installed weights and the scoped broker; hardware, electricity, and time
-still cost resources. Hosted chats keep their normal usage allowance.
+These demos use temporary authenticated storage and deterministic fixtures, with no model account. The feedback quest covers six acceptance, rewrite, accounting, receipt, and restart scenarios. The [v0.3.0 live measurements](https://github.com/spfuzzylink/questlock/blob/main/docs/measurements-v0.3.0.md) remain visible, including failed local-model checks; reuse does not improve answer quality.
 
 [Delegation and MCP](https://github.com/spfuzzylink/questlock/blob/main/docs/delegation.md) ·
 [Langfuse setup](https://github.com/spfuzzylink/questlock/blob/main/docs/inference-observability.md) ·
 [Container](https://github.com/spfuzzylink/questlock/pkgs/container/questlock) ·
-[Editable diagrams](https://github.com/spfuzzylink/questlock/blob/main/docs/model-architecture.md#editable-architecture-diagrams) ·
+[Editable feedback diagram](https://github.com/spfuzzylink/questlock/blob/main/docs/diagrams/human-outcomes.drawio) ·
 [Fork a failure case](https://github.com/spfuzzylink/questlock/fork)
 
 Small enough to inspect. Useful enough to measure.
