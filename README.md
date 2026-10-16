@@ -34,16 +34,18 @@ Most repositories here begin as a curiosity. Some may become useful tools. Each 
 
 ### ☕ Currently building: Questlock
 
-![Questlock v0.5.0: coordinated tasks, explicit runtime reuse, and human outcomes.](assets/questlock-v0.5.0.svg)
+![Questlock v0.6.0: reuse, revise, and check without new inference.](assets/questlock-v0.6.0.svg)
 
 **[Questlock](https://github.com/spfuzzylink/questlock)** — a Go + SQLite experiment in making shared agent work measurable, reusable, and reviewable.
 
-A model can pass its checks and still leave a person with work to redo. Repeated
-generations and runtime cache hits tell only part of that cost story.
-**Experimental v0.5.0 connects explicit provider/runtime contracts to shared task
-coordination and the existing human feedback loop.**
+A reviewed answer often needs one precise edit. Regenerating it adds computation
+and a chance of changing the claims. **Experimental v0.6.0 adds checked literal
+revisions: pin the source, apply counted edits, verify the result, and publish it
+without another model call.** Existing routing, runtime and human-outcome layers
+remain available.
 
-- **Coordinate bounded inference.** Codex and Claude Code can delegate checked tasks locally, or explicitly escalate through a budgeted provider tier. The new OpenRouter adapter requests one declared model/provider route.
+- **Revise without inference.** Exact source hashes, replacement counts and required checks guard mechanical edits. Immutable parent provenance supports follow-up changes; failed checks withhold text.
+- **Coordinate bounded inference.** Codex and Claude Code can delegate checked tasks locally, or explicitly escalate through a budgeted provider tier. The OpenRouter adapter requests one declared model/provider route.
 - **Inspect runtime reuse.** Standalone self-hosted SGLang dense/HiCache engines can generate bounded tasks. Runtime KV counters remain separate from provider cache billing and whole-answer reuse.
 - **Record the review outcome.** Accept, rewrite, reject, or reopen the work. Every rewrite clears acceptance until explicit reacceptance; cohort costs retain failed attempts and reported review effort.
 - **Reuse valid snapshots.** Matching completed results avoid another generation with zero new generation usage. A changed observed SGLang runtime stops an existing provider before stale reuse.
@@ -61,13 +63,14 @@ engines are inspection-only until a validated ingress is supported; no GPU
 performance win is claimed. Check scores and human acceptance remain separate.
 [Architecture and attribution](https://github.com/spfuzzylink/questlock/blob/main/docs/model-architecture.md#openrouter-inspiration-and-possible-add-on).
 
-**[Experimental v0.5.0](https://github.com/spfuzzylink/questlock/releases/tag/v0.5.0)** supports macOS and Linux on ARM64 and x86-64. From the Questlock checkout, after following the [installation steps](https://github.com/spfuzzylink/questlock#start-the-quest), try:
+**[Experimental v0.6.0](https://github.com/spfuzzylink/questlock/releases/tag/v0.6.0)** supports macOS and Linux on ARM64 and x86-64. From the Questlock checkout, after following the [installation steps](https://github.com/spfuzzylink/questlock#start-the-quest), try:
 
 ```sh
 ./bin/questlock quest
 ./bin/questlock model quest
 ./bin/questlock outcome quest
 ./bin/questlock model runtime-quest
+./bin/questlock revise quest
 ```
 
 These demos use temporary authenticated storage and deterministic fixtures, with
@@ -78,6 +81,8 @@ The [v0.3.0 live measurements](https://github.com/spfuzzylink/questlock/blob/mai
 remain visible, including failed local-model checks; reuse does not improve
 answer quality.
 
+[Checked revisions](https://github.com/spfuzzylink/questlock/blob/main/docs/checked-revisions.md) ·
+[Editable revision architecture](https://github.com/spfuzzylink/questlock/blob/main/docs/diagrams/checked-revisions.drawio) ·
 [Delegation and MCP](https://github.com/spfuzzylink/questlock/blob/main/docs/delegation.md) ·
 [Langfuse setup](https://github.com/spfuzzylink/questlock/blob/main/docs/inference-observability.md) ·
 [Runtime contracts and qualification](https://github.com/spfuzzylink/questlock/blob/main/docs/runtime-cache.md) ·
