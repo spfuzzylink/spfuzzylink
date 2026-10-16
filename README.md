@@ -61,7 +61,7 @@ engines are inspection-only until a validated ingress is supported; no GPU
 performance win is claimed. Check scores and human acceptance remain separate.
 [Architecture and attribution](https://github.com/spfuzzylink/questlock/blob/main/docs/model-architecture.md#openrouter-inspiration-and-possible-add-on).
 
-**[Experimental v0.5.0](https://github.com/spfuzzylink/questlock/releases/tag/v0.5.0)** supports macOS and Linux on ARM64 and x86-64. After [installing](https://github.com/spfuzzylink/questlock#start-the-quest), try:
+**[Experimental v0.5.0](https://github.com/spfuzzylink/questlock/releases/tag/v0.5.0)** supports macOS and Linux on ARM64 and x86-64. From the Questlock checkout, after following the [installation steps](https://github.com/spfuzzylink/questlock#start-the-quest), try:
 
 ```sh
 ./bin/questlock quest
