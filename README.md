@@ -44,15 +44,18 @@ local or configured models. Go + SQLite, small enough to inspect.
 
 **OpenRouter routes the model. Questlock coordinates the work.** An independent
 companion for the OpenRouter ecosystem, with shared task admission, reusable
-results and explicit human feedback. Credit to OpenRouter, SGLang and Langfuse
-for the layers they provide.
+results and explicit human feedback. Credit to OpenRouter, Ollama, TypeSafe, SGLang and
+Langfuse for the layers they provide.
 
-**Experimental v0.7.0** makes the first step easier:
+**Experimental v0.8.0** adds local work that is easier to share:
 
-- Choose Codex, Claude Code or Claude Desktop with `questlock setup`.
-- Finish a checked first task with zero model calls.
-- Use `doctor` and guarded config recovery instead of guessing at settings.
-- Run the main Codex CLI loop locally with an installed Ollama model.
+- Queue edge writes safely and follow one broker's accepted results.
+- Adapt local queues to CPU and memory pressure, with broker headroom.
+- Make advisory typed choices with TypeSafe's official adapter and Ollama.
+- Choose your own model, cost and resource policy; keep personal preferences local.
+
+`questlock setup` still connects your coding client and finishes a checked first
+task with zero model calls. `doctor` and guarded config recovery stay included.
 
 Local work has no provider token bill. The surrounding hosted chat still uses
 its normal allowance. The goal is less paid repetition, with quality and human
@@ -60,7 +63,7 @@ rework counted; the [build report](https://github.com/spfuzzylink/questlock/blob
 keeps the failures visible too.
 
 [Get started](https://github.com/spfuzzylink/questlock/blob/main/docs/onboarding.md) ·
-[Downloads](https://github.com/spfuzzylink/questlock/releases/tag/v0.7.0) ·
+[Downloads](https://github.com/spfuzzylink/questlock/releases/tag/v0.8.0) ·
 [Architecture](https://github.com/spfuzzylink/questlock/blob/main/docs/architecture.md) ·
 [Container](https://github.com/spfuzzylink/questlock/pkgs/container/questlock) ·
 [Fork it](https://github.com/spfuzzylink/questlock/fork)
