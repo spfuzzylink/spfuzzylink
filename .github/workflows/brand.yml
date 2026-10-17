@@ -1,0 +1,20 @@
+name: Permanent branding
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  brand:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Verify canonical Questlock artwork
+        run: |
+          python3 - <<'PYTEST'
+          import hashlib
+          from pathlib import Path
+          asset = "assets/questlock-brand.svg"
+          assert hashlib.sha256(Path(asset).read_bytes()).hexdigest() == "e8121dd023da8f1d76aa33e633ae03c44fffcc5f7794377e3b2ccb89b145ab29"
+          assert "(" + asset + ")" in Path("README.md").read_text()
+          PYTEST
