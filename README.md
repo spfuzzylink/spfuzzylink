@@ -47,25 +47,25 @@ companion for the OpenRouter ecosystem, with shared task admission, reusable
 results and explicit human feedback. Credit to OpenRouter, Ollama, TypeSafe, SGLang and
 Langfuse for the layers they provide.
 
-**Experimental v0.9.0** adds local teams with shared quality gates:
+**Experimental v0.9.1** gets the original six local team tasks through their
+answer checks and both reviewers. Five exact results were reused; the remaining
+task ran three fresh local roles with an explicit output contract.
 
-- A local master and independent reviewers for approved text tasks. Paid fallback stays disabled.
-- Hand roles between workers over HTTPS; reuse checked results without generation.
-- Compare six matched tasks, keeping failed checks and memory refusals visible.
-
-The tested small model did not finish the live team suite. The 99% hosted-usage
-target is still unproven; we publish what happened.
+The same saved Codex baseline reports **65,800 hosted tokens**; these local
+workflows use **0 hosted tokens and $0 provider API spend**, with paid fallback
+disabled. That is a bounded workflow result, not a whole-chat credit claim or a
+general coding benchmark. We publish failed attempts and limits too.
 
 `questlock setup` still connects your coding client and finishes a checked first
 task with zero model calls. `doctor` and guarded config recovery stay included.
 
 Local work has no provider token bill. The surrounding hosted chat still uses
 its normal allowance. The goal is less paid repetition, with quality and human
-rework counted; the [validation report](https://github.com/spfuzzylink/questlock/blob/main/docs/local-team-validation-v0.9.0.md)
+rework counted; the [validation report](https://github.com/spfuzzylink/questlock/blob/main/docs/local-team-validation-v0.9.1.md)
 keeps the failures visible too.
 
 [Get started](https://github.com/spfuzzylink/questlock/blob/main/docs/onboarding.md) ·
-[Downloads](https://github.com/spfuzzylink/questlock/releases/tag/v0.9.0) ·
+[Downloads](https://github.com/spfuzzylink/questlock/releases/tag/v0.9.1) ·
 [Architecture](https://github.com/spfuzzylink/questlock/blob/main/docs/architecture.md) ·
 [Container](https://github.com/spfuzzylink/questlock/pkgs/container/questlock) ·
 [Fork it](https://github.com/spfuzzylink/questlock/fork)
