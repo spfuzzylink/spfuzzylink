@@ -39,8 +39,10 @@ Most repositories here begin as a curiosity. Some may become useful tools. Each 
 You already paid for the answer. Why generate it again to change a sentence?
 
 **[Questlock](https://github.com/spfuzzylink/questlock)** reuses completed work,
-applies checked literal edits without a model, and delegates bounded tasks to
-local or configured models. Go + SQLite, small enough to inspect.
+applies checked literal edits without a model, and runs bounded tasks through
+local or hosted models. Optional CPU/memory-aware admission and cache-aware SGLang
+integration help coordinate the work around them. Go + SQLite, small enough to inspect.
+[Integration samples](https://github.com/spfuzzylink/questlock#use-it-with-what-you-already-run).
 
 **OpenRouter routes the model. Questlock coordinates the work.** An independent
 companion for the OpenRouter ecosystem, with shared task admission, reusable
