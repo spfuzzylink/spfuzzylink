@@ -49,14 +49,23 @@ companion for the OpenRouter ecosystem, with shared task admission, reusable
 results and explicit human feedback. Credit to OpenRouter, Ollama, TypeSafe, SGLang and
 Langfuse for the layers they provide.
 
-**Experimental v0.10.0** puts that coordination inside your Go app. Run workers on
+Keep older completed work in configurable local cold storage, with exact reuse,
+pending claims and retry receipts preserved. Optional Langfuse storage events
+help spot archive failures without exporting the saved content.
+[Storage setup and recovery](https://github.com/spfuzzylink/questlock/blob/main/docs/storage-retention.md).
+
+Use the Codex/ChatGPT or Claude Code plugin to get going. The first checked task
+and its exact repeat need no model call.
+[Install a plugin](https://github.com/spfuzzylink/questlock/blob/main/docs/plugins.md).
+
+Put that coordination inside your Go app. Run workers on
 one machine or several, sharing results and one daily token allowance through
 a broker. Each process pauses when its own CPU or memory is under pressure;
 your chosen runtime still owns the GPU.
 [Wire it into Go](https://github.com/spfuzzylink/questlock/blob/main/docs/go-integration.md) ·
 [Measured overhead and limits](https://github.com/spfuzzylink/questlock/blob/main/docs/execution-validation-v0.10.0.md).
 
-**Earlier v0.9.1** got the original six local team tasks through their
+In the published local-team check, the original six tasks passed their
 answer checks and both reviewers. Five exact results were reused; the remaining
 task ran three fresh local roles with an explicit output contract.
 
@@ -74,7 +83,7 @@ rework counted; the [validation report](https://github.com/spfuzzylink/questlock
 keeps the failures visible too.
 
 [Get started](https://github.com/spfuzzylink/questlock/blob/main/docs/onboarding.md) ·
-[Downloads](https://github.com/spfuzzylink/questlock/releases/tag/v0.10.0) ·
+[Downloads](https://github.com/spfuzzylink/questlock/releases) ·
 [Architecture](https://github.com/spfuzzylink/questlock/blob/main/docs/architecture.md) ·
 [Container](https://github.com/spfuzzylink/questlock/pkgs/container/questlock) ·
 [Fork it](https://github.com/spfuzzylink/questlock/fork)
